@@ -1,0 +1,21 @@
+결측데이터를 OT로 변환
+drinks['continent']=drinks['continent'].fillna('OT')
+
+널값 확인
+drinks['continent'].isnull().sum()
+
+
+대륙별, sprit_servings의 기초통계치
+result=drinks.groupby('continent').spirit_servings.agg(['mean','min','max','sum'])
+result.head()
+
+
+전체 평균보다 많은 알코올을 섭취하는 대륙을 구합니다
+total_mean()=drinks.total_litres_of_pure_alcohol.mean()
+continent_mean=drinks.groupby('continent')['total_litres_of_pure_alcohol'].mean()
+continent_over_mean=continent_mean[continent_mean>=total_mean]
+print(continent_over_mean)
+
+beer_servings이 가장 높은 대륙을 구합니다
+beer_continent=drinks.groupby('continent').beer_servings.mean().idxmax()
+print(beer_continent)
