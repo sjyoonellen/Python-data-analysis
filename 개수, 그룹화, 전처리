@@ -1,0 +1,15 @@
+각 항목 별 개수 구하기
+
+chipo['item_name'].value_counts()
+
+탑 10 구하기
+chipo['item_name'].value_counts()[:10]
+
+
+그룹화
+order_count=chipo.groupby('item_name')['order_id'].count()
+order_count[:10]
+
+전처리 (맨 앞에 달러표시 지우기)
+chipo['item_price']=chipo['item_price'].apply(lambda x:float(x[1:]))
+chipo.describe()
