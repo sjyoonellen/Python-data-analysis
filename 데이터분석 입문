@@ -1,0 +1,22 @@
+import pandas as pd
+names=['Bob','Jessica','Mary', 'John', 'Mel']
+births=[968,155,333,424,333]
+custom=[1,2,3,2,4]
+BabyDataSet=list(zip(names,births))
+df=pd.DataFrame(data=BabyDataSet, columns=['Names', 'Births'])
+
+df.head()
+
+열 출력
+df['Names']
+
+
+행 출력
+df[0:3]
+
+조건부 열 출력
+df[df['Births']>170]
+
+기초통계치
+df.mean()
+df.describe()
