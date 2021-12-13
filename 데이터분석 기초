@@ -1,0 +1,34 @@
+df.types 
+
+df.columns
+
+df['Names']
+
+df[0:3]
+
+df[df['Births']>100]
+
+df.mean()
+
+str으로 변환
+: chipo['order_id']=chipo['order_id'].astype(str)
+
+개수 탐색. 범주형은 unique()사용
+: print(len(chipo['order_id'].unique()))
+
+탑텐:
+order_count=chipo.groupby('item_name')['order_id'].count()
+order_count[:10]
+
+
+가장 비싼 주문에서 아이템이 총 몇 개 팔렸는지 구학;
+chipo.groupby('order_id').sum().sort_values(by='item_price', ascending=False)[:5]
+
+
+veggie salad bowl이 몇 번 주문되었는지 구하기
+chipo_salad=chipo[chipo['item_name']=="Veggie Salad Vowl"]
+chipo_salad=chipo_salad.drop_duplicates(['item_name', 'order_id'])
+print(len(chipo_salad))
+
+결측 데이터 전처리
+drinks['continent']=drinks['continent'].fillna('OT')
