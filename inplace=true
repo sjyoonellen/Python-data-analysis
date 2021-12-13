@@ -1,0 +1,38 @@
+output.rename(columns={'A':'B'}, inplace=TRUE)
+inplace true= Whether to return a new DataFrame. If True then value of copy is ignored.
+
+
+Output['A']=Output.apply(lambda x:"1" if x['A']==True else "0",1)
+axis = 1은 열 방향으로 칼럼의 연산을 적용하라는 의미이다
+
+
+df = pd.DataFrame([[1, 2], [4, 5], [7, 8]],
+     index=['cobra', 'viper', 'sidewinder'],
+     columns=['max_speed', 'shield'])
+df
+            max_speed  shield
+cobra               1       2
+viper               4       5
+sidewinder          7       8
+
+df.loc['viper']
+max_speed    4
+shield       5
+Name: viper, dtype: int64
+
+df.loc[['viper', 'sidewinder']]
+            max_speed  shield
+viper               4       5
+sidewinder          7       8
+
+df.loc['cobra', 'shield']
+2
+
+
+A=A.sort_values(["a", "b", "c"].ascending=True).reset_index()
+
+
+
+
+
+
