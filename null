@@ -1,0 +1,5 @@
+filtering out missing data:
+data.dropna()
+
+filling in missing data
+df.fillna(0)
