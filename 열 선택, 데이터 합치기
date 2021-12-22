@@ -1,0 +1,9 @@
+원하는 열만 담기:
+cols=['지역명', '연도', '월', '평당분양가격']
+df_last_prepare=df_last.loc[df_last["전용면적"]=="전체", cols]
+
+연도 별로 데이터가 몇 개 씩 있는지 세기:
+df["연도"].value_counts(sort=False)
+
+데이터 합치기:
+df=pd.concat([df_first_prepare, df_last_prepare])
