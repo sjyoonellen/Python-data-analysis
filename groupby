@@ -1,0 +1,4 @@
+df_last.groupby(["지역명])("평당분양가격").mean()
+
+g=df_last.groupby(["연도", "지역명"])["평당분양가격"].mean().unstack().T
+#unstack()은 컬럼 값으로 만든다는 뜻
