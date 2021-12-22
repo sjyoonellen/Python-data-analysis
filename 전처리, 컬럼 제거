@@ -1,0 +1,19 @@
+널값 확인:
+df_last.isnull().sum()
+
+수치데이터로 변환. '  ' 칸으로 인한 에러 무시하기:
+df_last["분양가격"]=pd.to_numeric(df_last["분양가격(m2)"], errors='coerce')
+
+규모구분 컬럼의 unique한 값들:
+df_last["규모구분"].unique()
+
+전용면적을 element이름에서 지움:
+df_last["전용면적"]=df_last["규모구분"].str.replace("전용면적", " ")
+-> 그냥 replace는 완전히 일치해야 함.
+
+.str.strip():
+앞, 뒤 공백 제거
+
+컬럼 제거. axis-> 0은 행 1은 열
+df_last=df_last.drop(["규모구분", "분양가격(m2)"], axis=1)
+
