@@ -1,0 +1,13 @@
+date="2013년12월"
+#split을 통해 "년"을 기준으로 텍스트를 분리해봅니다
+
+date.split("년")
+
+#연도만 반환하도록 하며, 반환하는 데이터는 int 타입이 되도록 합니다
+
+df parse_year(date):
+year=date.split("년")[0]
+year=int(year)
+return year
+
+df_first_melt["연도"]=df_first_melt["기간"].apply(parse_year)
