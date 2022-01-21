@@ -1,0 +1,10 @@
+Table['ColumnA']=Table['ColumnB'].fillna(0)
+Table2=Table.groupby('ColumnA', 'ColumnB', 'ColumnC')['ColumnD'].sum().reset_index()
+
+Table.sort_values(by=['ColumnA', 'ColumnB'], ascending=[True, False], axis=0, inplace=True)
+Table['ColumnA']=Table.apply(lambda x:0 if x['ColumnB']==1 else x['ColumnC'],1)
+
+Table=Table.rename(columns={'Columna':'ColumnA'})
+Tabledistinct=Table.drop(['ColumnA', 'ColumnB'], axis=1)
+Table['ColumnA']=Table['ColumnA'].astype(int)
+
