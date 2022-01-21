@@ -1,0 +1,7 @@
+data1_list=data1['ColumnA'].tolist()
+data1_list2=[i.split('_')[0] for i in data1_list]
+data2_list2=data2['ColumnA'].tolist()
+
+for i in range(len(data1)):
+   if str(data1.loc[i,'ColumnA']).split('_')[0] in data1_list2 and str(data1.loc[i, 'ColumnA']).split('_')[0] not in data2_list2:
+     data1.loc[i,'ColumnB']=0
