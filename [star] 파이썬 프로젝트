@@ -14,6 +14,8 @@ for i in range(len(data3)-1):
   if data3.iloc[i,11]!=data3.iloc[i+1,11]:
     data3.iloc[i,5]=0
 
+(파이썬의 경우, for i in range(len())함수를 쓸 때, 에러가 뜨므로, 마지막 행은 따로 나눠서 계산 해야 했었음...)
+
 #마지막 행을 영으로 만들기 
  data3.iloc[len(data3)-1,5]=0
  
