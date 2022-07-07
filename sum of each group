@@ -10,4 +10,4 @@ for i in range(len(data)):
 
 g=data.groupby(['Item.[Item]', 'Time.[Week]'])
 l=pd.DataFrame.last_valid_index
-data.loc[g.apply(l), 'InboundQ']=g.Quantity.sum().values-data.iloc[-1,5]-g.InboundQ.sum().values+data.iloc[-1,6]
+data.loc[g.apply(l), 'InboundQ']=g.Quantity.sum().values-data.loc[g.apply(l), 'Quantity']-g.InboundQ.sum().values+data.loc[g.apply(l), 'InboundQ']
