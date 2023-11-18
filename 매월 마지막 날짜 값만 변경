@@ -1,0 +1,21 @@
+import pandas as pd
+
+data.sort_values(by=['Item.[Item]', 'Time.[Week]', 'Inbound Order'], ascending=True, axis=0, inplace=True)
+
+data=data.rename(columns={'D Material Production Quantity Plan Output':'Quantity'})
+data=data.rename(columns={'Inbound Quantity':'InboundQ'})
+
+data[data.Quantity>0]
+
+data[['InboundQ']]=0
+
+for i in range(len(data)):
+    data.iloc[i,7]=(1-data.iloc[i,5])*data.iloc[i,6]
+
+g=data.groupby(['Item.[Item]', 'Time.[Week]'])
+
+l=pd.DataFrame.last_valid_index
+data.loc[g.apply(l), 'InboundQ']=g.Quantity.sum().values-data.loc[g.apply(l), 'Quantity']-g.InboundQ.sum().values+data.loc[g.apply(l), 'InboundQ']
+data=data.rename(columns={'InboundQ': 'Inbound Quantity'})
+Output=data[['Item.[Item]', 'Time.[Week]', 'Location.[Location]', 'Version.[Version Name]', 'Inbound Quantity']]
+
