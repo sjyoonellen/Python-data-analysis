@@ -1,0 +1,7 @@
+아나콘다 >> 파이썬
+아니콘다가 설치 안 되어 있는 상태에서 cmd로 설치
+
+jupyter notebook에 파일을 홈에다가 올리고
+
+import pandas as pd
+data=pd.read_csv("data.csv")
