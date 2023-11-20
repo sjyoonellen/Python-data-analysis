@@ -1,0 +1,2 @@
+
+data3=data.groupby(['month', 'week_id'])['sum(total_traffic)'].count().astype(int).reset_index(name='count')
