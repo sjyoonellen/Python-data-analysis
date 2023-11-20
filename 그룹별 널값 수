@@ -1,0 +1,2 @@
+import numpy as np
+data2 = data['sum(total_traffic)'].isnull().groupby([data['month'],data['week_id']]).sum().astype(int).reset_index(name='count')
