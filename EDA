@@ -1,0 +1,54 @@
+chipo['order_id']=chipo['order_id'].astype(str)
+
+print(len(chipo['order_id'].unique()))
+
+item_count=chipo['item_name'].value_counts()[:10]
+for indx, (val, cnt) in enumerate(item_count.iteritems(),1):
+print("Top", idx, ":", val, cnt)
+
+order_count=chipo.groupby('item_name')['order_id'].count()
+order_count[:10]
+
+item_quantity=chipo.groupy('item_name')['quantity'].sum()
+item_quantity[:10]
+
+chipo['item_price']=chipo['item_price'].apply(lambda x:float(x[1:]))
+chipo.describe()
+
+chipo.groupby('order_id')['item_price'].sum().mean()
+
+chipo_orderid_group=chipo.groupby('order_id').sum()
+results=chipo_orderid_group[chipo_orderid_group.item_price>=10]
+
+chipo_one_item=chipo[chipo.quantity==1]
+price_per_item=chipo_one_item.groupby('item_name').min()
+price_per_item.sort_values(by="item_price", ascending=False)[:10]
+
+chipo.groupby('order_id').sum().sort_values(by="item_price", ascending=False)[:5]
+
+chipo_salad=chipo[chipo['item_name']=="Veggie Salad Bowl"]
+chipo_salad=chipo_salad.drop_duplicates(['item_name', 'order_id'])
+
+결측 데이터 전처리
+drinks['continent']=drinks['continent'].fillna('OT')
+
+
+result=drinks.groupby('continent').spirit_servings.agg(['mean', 'min', 'max', 'sum'])
+
+전체 평균보다 많은 알코올을 섭취하는 대륙은 어디일까
+total_mean=drinks.total_litres_of_pure_alcohol.mean()
+continent_mean=drinks.groupby('continent')['total_litres_of_pure_alcohol'].mean()
+continent_over_mean=continent_mean[contient_mean>=total_mean]
+
+평균 beer_servings가 가장 높은 대륙을 구합니다
+beer_continent=drinks.groupby('continent').beer_servings.mean().idxmax()
+
+
+
+
+
+
+
+
+
+
