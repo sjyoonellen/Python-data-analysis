@@ -1,0 +1,82 @@
+SCRIPT_REAL("
+import numpy as np
+import pandas as pd
+Country=np.array(_arg1)
+Retailer=np.array(_arg2)
+Account_Category_1=np.array(_arg3)
+Mapping=np.array(_arg4)
+Week=np.array(_arg5)
+Date=np.array(_arg6)
+Cumulative_2_Star_Reviews=np.array(_arg7)
+Cumulative_1_Star_Reviews=np.array(_arg8)
+Cumulative_3_Star_Reviews=np.array(_arg9)
+Cumulative_4_Star_Reviews=np.array(_arg10)
+Cumulative_5_Star_Reviews=np.array(_arg11)
+ 
+data=pd.DataFrame({'Country':Country, 'Retailer':Retailer, 'Account_Category_1':Account_Category_1,
+'Mapping':Mapping, 'Week':Week, 'Date':Date, 'Cumulative_1_Star_Reviews':Cumulative_1_Star_Reviews,
+'Cumulative_2_Star_Reviews':Cumulative_2_Star_Reviews, 'Cumulative_3_Star_Reviews':Cumulative_3_Star_Reviews,
+'Cumulative_4_Star_Reviews':Cumulative_4_Star_Reviews, 'Cumulative_5_Star_Reviews':Cumulative_5_Star_Reviews})
+ 
+ 
+data.sort_values(by=['Country', 'Retailer', 'Account_Category_1', 'Mapping', 'Week', 'Date'], ascending=True, axis=0, inplace=True)
+data=data[['Country', 'Retailer', 'Account_Category_1', 'Mapping', 'Week', 'Date', 'Cumulative_2_Star_Reviews', 
+'Cumulative_1_Star_Reviews', 'Cumulative_3_Star_Reviews', 'Cumulative_4_Star_Reviews', 'Cumulative_5_Star_Reviews']]
+data['Cumulative_3_Star_Reviews']=0
+data['Cumulative_4_Star_Reviews']=0
+data['Cumulative_5_Star_Reviews']=0
+g=data.groupby(['Country', 'Retailer', 'Account_Category_1', 'Mapping', 'Week'])
+l=pd.DataFrame.last_valid_index
+data.loc[g.apply(l), 'Cumulative_4_Star_Reviews']=data.loc[g.apply(l), 'Date']
+data.loc[g.apply(l), 'Cumulative_3_Star_Reviews']=g.Cumulative_1_Star_Reviews.sum().values+g.Cumulative_2_Star_Reviews.sum().values
+h=data.groupby(['Country', 'Retailer', 'Account_Category_1', 'Mapping', 'Week', 'Date'])
+m=pd.DataFrame.last_valid_index
+data.loc[h.apply(m), 'Cumulative_5_Star_Reviews']=h.Cumulative_1_Star_Reviews.sum().values+h.Cumulative_2_Star_Reviews.sum().values
+for i in range(len(data)):
+    if data.iloc[i,9]==0:
+        data.iloc[i,9]=data.iloc[i,7]
+data.drop(data[data['Cumulative_4_Star_Reviews'] ==0].index, inplace = True)
+ 
+data=data[['Country', 'Retailer', 'Account_Category_1', 'Mapping', 'Week', 'Date', 'Cumulative_2_Star_Reviews', 'Cumulative_1_Star_Reviews', 
+'Cumulative_3_Star_Reviews', 'Cumulative_4_Star_Reviews','Cumulative_5_Star_Reviews']]       
+ 
+   
+a=data.values.tolist()[0][10]
+
+ 
+return a"
+, ATTR([Country]), ATTR([Retailer]), ATTR([Account Category 1]), ATTR([Mapping]), ATTR([Week]),ATTR([Date]),SUM([Cumulative 1 Star Reviews]),
+SUM([Cumulative 2 Star Reviews]), SUM([Cumulative 3 Star Reviews]), SUM([Cumulative 4 Star Reviews]), SUM([Cumulative 5 Star Reviews]))
+
+
+
+
+#2
+
+SCRIPT_REAL("
+import numpy as np
+import pandas as pd
+Country=np.array(_arg1)
+Cumulative_2_Star_Reviews=np.array(_arg2)
+ 
+
+data=pd.DataFrame({'Country':Country, 'Cumulative_2_Star_Reviews':Cumulative_2_Star_Reviews})
+data['Cumulative_2_Star_Reviews']=2          
+data=data[['Country','Cumulative_2_Star_Reviews']]
+a=data.values.tolist()[0][1]
+return a"
+, ATTR([Country]), SUM([Cumulative 2 Star Reviews]))
+
+
+#3
+SCRIPT_REAL("
+import numpy as np
+import pandas as pd
+Inventory=np.array(_arg1)
+data=pd.DataFrame({'Inventory':Inventory})
+data['Inventory']=data['Inventory']*5
+data2=data[['Inventory']]
+a=data2.values.tolist()[0]
+return a"
+,
+SUM([Inventory]))
