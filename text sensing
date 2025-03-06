@@ -1,0 +1,149 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+import pandas as pd
+data=pd.read_csv('C:\\Users\\82104\\Desktop\\data.csv')
+
+others_keyword = ['warranty',
+ 'portable',
+ 'desktop monitor',
+ 'sigange',
+ 'privacy screen filter',
+ 'laptop monitor extender',
+ 'hdmi cable',
+ 'controller board',
+ 'temperature monitor',
+ 'laptop monitor',
+ 'dual monitor',
+ 'keyboard',
+ 'cleaning kit',
+ 'garantie',
+ 'gaming maus',
+ '2 pack',
+ 'dual monitor',
+ '2-pack',
+ '3 pack',
+ 'tragbarer monitor',
+ 'wrnty',
+ 'laptiptop', 'ersatzdisplay', 'replacement']
+
+data['Others'] = data.apply(
+    lambda row: 'Others' if (
+        any(keyword in row['Title'].lower() for keyword in others_keyword) or
+        ('BNDL' in str(row['Model Number']))) else '-',
+        axis=1
+)
+
+
+res2_8k = ["8K"]
+res2_4k = ["4K", "uhd", "ultra hd", "ultrahd", "Ultra HD", "2160p", "3840x2160", "3840 x x2160"]
+res2_fhd = ["fhd", "full hd", "fullhd", "1080p","Full HD", "Full-HD", "1920x10800", "1920 x x1080"]
+res2_hd = ["HD+", "1680 x 1050", "1680x1050"]
+
+data['Resolution2'] = data.apply(
+    lambda row: row['Resolution2'] if row['Others'] == 'Others' else
+    ('8K' if any(keyword.lower() in row['Title'].lower() for keyword in res2_8k) else
+    '4K' if any(keyword.lower() in row['Title'].lower() for keyword in res2_4k) else
+    'FHD' if any(keyword.lower() in row['Title'].lower() for keyword in res2_fhd) else
+    'HD' if any(keyword.lower() in row['Title'].lower() for keyword in res2_hd) else row['Resolution2']),
+    axis=1
+)
+
+data.head()
+
+data['Resolution2'].unique()
+
+
+res1_4k_1 = ["3840 x 1440", "3840x1440"]
+res1_4k_2 = ["2500 x 1600", "2500x1600"]
+res1_4k_3 = ["2460 x 1440", "2460x1440"]
+res1_4k_4 = ["3840 x 2160", "3840x2160"]
+res1_4k_5 = ["3840 x 2560", "3840x2560"]
+res1_4k_6 = ["4096 x 2160", "4096x2160"]
+res1_4k_7 = ["4096 x 2304", "4096x2304"]
+res1_4k_8 = ["7680 x 2160", "7680x2160"]
+
+res1_fhd_1 = ["3840 x 1200", "3840x1200"]
+res1_fhd_2 = ["3840 x 1080", "3840x1080"]
+res1_fhd_3 = ["2560 x 1080", "2560x1080"]
+res1_fhd_4 = ["1920 x 1200", "1920x1200"]
+res1_fhd_5 = ["1920 x 1080", "1920x1080"]
+res1_fhd_6 = ["1900 x 1200", "1900x1200"]
+
+res1_qhd_1 = ["3840 x 1600", "3840x1600"]
+res1_qhd_2 = ["3440 x 1440", "3440x1440"]
+res1_qhd_3 = ["2560 x 1600", "2560x1600"]
+res1_qhd_4 = ["2560 x 1440", "2560x1440"]
+res1_qhd_5 = ["5120 x 1440", "5120x1440"]
+
+
+
+
+data['Resolution1'] = data.apply(
+    lambda row: row['Resolution1'] if row['Others'] == 'Others' else
+    ('3840 x 1440' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_1) else
+    '2500 x 1600' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_2) else
+    '2460 x 1440' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_3) else
+    '3840 x 2160' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_4) else
+    '3840 x 2560' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_5) else
+    '4096 x 2160' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_6) else
+    '4096 x 2304' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_7) else
+    '7680 x 2160' if any(keyword.lower() in row['Title'].lower() for keyword in res1_4k_8) else
+    
+    '3840 x 1200' if any(keyword.lower() in row['Title'].lower() for keyword in res1_fhd_1)  else
+    '3840 x 1080' if any(keyword.lower() in row['Title'].lower() for keyword in res1_fhd_2) else
+    '2560 x 1080' if any(keyword.lower() in row['Title'].lower() for keyword in res1_fhd_3) else
+    '1920 x 1200' if any(keyword.lower() in row['Title'].lower() for keyword in res1_fhd_4) else
+    '1920 x 1080' if any(keyword.lower() in row['Title'].lower() for keyword in res1_fhd_5) else
+    '1900 x 1200' if any(keyword.lower() in row['Title'].lower() for keyword in res1_fhd_6) else
+    
+    '3840 x 1600' if any(keyword.lower() in row['Title'].lower() for keyword in res1_qhd_1)  else
+    '3440 x 1440' if any(keyword.lower() in row['Title'].lower() for keyword in res1_qhd_2) else
+    '2560 x 1600' if any(keyword.lower() in row['Title'].lower() for keyword in res1_qhd_3) else
+    '2560 x 1440' if any(keyword.lower() in row['Title'].lower() for keyword in res1_qhd_4) else
+    '5120 x 1440' if any(keyword.lower() in row['Title'].lower() for keyword in res1_qhd_5) else
+    
+    
+    
+    row['Resolution1']),
+    axis=1
+)
+
+
+
+
+
+
+data.head()
+
+data['Resolution1'].unique()
+
+
+
+
+
+
+import re
+
+def extract_and_pad_inch(title):
+        match = re.search(r'(\d+\.?\d*)\s*(-?inch|inch|\"|\'\'|zoll|-zoll)', title, re.IGNORECASE) 
+        if match:
+            inch=float(match.group(1))
+            inch=round(inch)
+            return inch
+        return None
+   
+data['Inch'] = data.apply(lambda row: row['Inch'] if row['Others'] == 'Others' else extract_and_pad_inch(row['Title']), axis=1)
+
+
+
+
+
+
+
+
+
