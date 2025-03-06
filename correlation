@@ -1,0 +1,284 @@
+
+
+import pandas as pd
+import numpy as nd
+
+data=pd.read_csv('C:\\Users\\TZ422RR\\OneDrive - EY\\Desktop\\mxdata.csv', encoding="cp949")
+
+
+
+a1=data[['Spend', 'Sell-OutSales']].corr()
+a1final=a1.drop(columns=['Spend'])
+
+a2=data[['Impressions', 'Sell-OutSales']].corr()
+a2final=a2.drop(columns=['Impressions'])
+
+
+a3=data[['50% Views', 'Sell-OutSales']].corr()
+a3final=a3.drop(columns=['50% Views'])
+
+a4=data[['Clicks', 'Sell-OutSales']].corr()
+a4final=a4.drop(columns=['Clicks'])
+
+a5=data[['CPC', 'Sell-OutSales']].corr()
+a5final=a5.drop(columns=['CPC'])
+
+a6=data[['CPM', 'Sell-OutSales']].corr()
+a6final=a6.drop(columns=['CPM'])
+
+a7=data[['CPOrder', 'Sell-OutSales']].corr()
+a7final=a7.drop(columns=['CPOrder'])
+
+a8=data[['CPView50%', 'Sell-OutSales']].corr()
+a8final=a8.drop(columns=['CPView50%'])
+
+a9=data[['CPVisit', 'Sell-OutSales']].corr()
+a9final=a9.drop(columns=['CPVisit'])
+
+a10=data[['CTR', 'Sell-OutSales']].corr()
+a10final=a10.drop(columns=['CTR'])
+
+a11=data[['Visits', 'Sell-OutSales']].corr()
+a11final=a11.drop(columns=['Visits'])
+
+a12=data[['Order rate', 'Sell-OutSales']].corr()
+a12final=a12.drop(columns=['Order rate'])
+
+a13=data[['Orders', 'Sell-OutSales']].corr()
+a13final=a13.drop(columns=['Orders'])
+
+a14=data[['ROAS', 'Sell-OutSales']].corr()
+a14final=a14.drop(columns=['ROAS'])
+
+a15=data[['Visit rate', 'Sell-OutSales']].corr()
+a15final=a15.drop(columns=['Visit rate'])
+
+a16=data[['VTR50%', 'Sell-OutSales']].corr()
+a16final=a16.drop(columns=['VTR50%'])
+
+
+frames=[a1final, a2final, a3final, a4final, a5final,a6final,
+        a7final,a8final,a9final,a10final,a11final,a12final,a13final,
+        a14final,a15final,a16final]
+
+result=pd.concat(frames)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-----------------------------------
+
+
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+import pandas as pd
+import numpy as nd
+
+data=pd.read_csv('C:\\Users\\TZ422RR\\OneDrive - EY\\Desktop\\funnel.csv', encoding="cp949")
+
+
+
+a1=data[['Media(Channel)','Spend', 'Revenue']].groupby(['Media(Channel)']).corr()
+a1final=a1.drop(columns=['Spend'])
+
+a2=data[['Media(Channel)','Impressions', 'Revenue']].groupby(['Media(Channel)']).corr()
+a2final=a2.drop(columns=['Impressions'])
+
+
+a3=data[['Media(Channel)','50% Views', 'Revenue']].groupby(['Media(Channel)']).corr()
+a3final=a3.drop(columns=['50% Views'])
+
+a4=data[['Media(Channel)','Clicks', 'Revenue']].groupby(['Media(Channel)']).corr()
+a4final=a4.drop(columns=['Clicks'])
+
+a5=data[['Media(Channel)','CPC', 'Revenue']].groupby(['Media(Channel)']).corr()
+a5final=a5.drop(columns=['CPC'])
+
+a6=data[['Media(Channel)','CPM', 'Revenue']].groupby(['Media(Channel)']).corr()
+a6final=a6.drop(columns=['CPM'])
+
+a7=data[['Media(Channel)','CPOrder', 'Revenue']].groupby(['Media(Channel)']).corr()
+a7final=a7.drop(columns=['CPOrder'])
+
+a8=data[['Media(Channel)','CPView50%', 'Revenue']].groupby(['Media(Channel)']).corr()
+a8final=a8.drop(columns=['CPView50%'])
+
+a9=data[['Media(Channel)','CPVisit', 'Revenue']].groupby(['Media(Channel)']).corr()
+a9final=a9.drop(columns=['CPVisit'])
+
+a10=data[['Media(Channel)','CTR', 'Revenue']].groupby(['Media(Channel)']).corr()
+a10final=a10.drop(columns=['CTR'])
+
+a11=data[['Media(Channel)','Visits', 'Revenue']].groupby(['Media(Channel)']).corr()
+a11final=a11.drop(columns=['Visits'])
+
+a12=data[['Media(Channel)','Order rate', 'Revenue']].groupby(['Media(Channel)']).corr()
+a12final=a12.drop(columns=['Order rate'])
+
+a13=data[['Media(Channel)','Orders', 'Revenue']].groupby(['Media(Channel)']).corr()
+a13final=a13.drop(columns=['Orders'])
+
+a14=data[['Media(Channel)','ROAS', 'Revenue']].groupby(['Media(Channel)']).corr()
+a14final=a14.drop(columns=['ROAS'])
+
+a15=data[['Media(Channel)','Visit rate', 'Revenue']].groupby(['Media(Channel)']).corr()
+a15final=a15.drop(columns=['Visit rate'])
+
+a16=data[['Media(Channel)','VTR50%', 'Revenue']].groupby(['Media(Channel)']).corr()
+a16final=a16.drop(columns=['VTR50%'])
+
+
+frames=[a1final, a2final, a3final, a4final, a5final,a6final,
+        a7final,a8final,a9final,a10final,a11final,a12final,a13final,
+        a14final,a15final,a16final]
+
+result=pd.concat(frames)
+
+--------------------------------------------------------------------------------------
+#월별로 group by
+
+
+import pandas as pd
+import numpy as nd
+
+data=pd.read_csv('C:\\Users\\TZ422RR\\OneDrive - EY\\Desktop\\funnel.csv', encoding="cp949")
+
+
+a1=data[['Media(Channel)','Spend', 'Revenue','month']].groupby(['Media(Channel)', 'month']).corr()
+a1final=a1.drop(columns=['Spend'])
+
+a2=data[['Media(Channel)','Impressions', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a2final=a2.drop(columns=['Impressions'])
+
+a3=data[['Media(Channel)','50% Views', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a3final=a3.drop(columns=['50% Views'])
+
+a4=data[['Media(Channel)','Clicks', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a4final=a4.drop(columns=['Clicks'])
+
+a5=data[['Media(Channel)','CPC', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a5final=a5.drop(columns=['CPC'])
+
+a6=data[['Media(Channel)','CPM', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a6final=a6.drop(columns=['CPM'])
+
+a7=data[['Media(Channel)','CPOrder', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a7final=a7.drop(columns=['CPOrder'])
+
+a8=data[['Media(Channel)','CPView50%', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a8final=a8.drop(columns=['CPView50%'])
+
+a9=data[['Media(Channel)','CPVisit', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a9final=a9.drop(columns=['CPVisit'])
+
+a10=data[['Media(Channel)','CTR', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a10final=a10.drop(columns=['CTR'])
+
+a11=data[['Media(Channel)','Visits', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a11final=a11.drop(columns=['Visits'])
+
+a12=data[['Media(Channel)','Order rate', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a12final=a12.drop(columns=['Order rate'])
+
+a13=data[['Media(Channel)','Orders', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a13final=a13.drop(columns=['Orders'])
+
+a14=data[['Media(Channel)','ROAS', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a14final=a14.drop(columns=['ROAS'])
+
+a15=data[['Media(Channel)','Visit rate', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a15final=a15.drop(columns=['Visit rate'])
+
+a16=data[['Media(Channel)','VTR50%', 'Revenue','month']].groupby(['Media(Channel)','month']).corr()
+a16final=a16.drop(columns=['VTR50%'])
+
+
+frames=[a1final, a2final, a3final, a4final, a5final,a6final,
+        a7final,a8final,a9final,a10final,a11final,a12final,a13final,
+        a14final,a15final,a16final]
+
+result=pd.concat(frames)
+
+---------------
+
+
+
+import pandas as pd
+import numpy as nd
+
+data=pd.read_csv('C:\\Users\\TZ422RR\\OneDrive - EY\\Desktop\\mxdata.csv', encoding="cp949")
+
+
+a1=data[['Spend', 'Revenue','month']].groupby(['month']).corr()
+a1final=a1.drop(columns=['Spend'])
+
+a2=data[['Impressions', 'Revenue','month']].groupby(['month']).corr()
+a2final=a2.drop(columns=['Impressions'])
+
+a3=data[['50% Views', 'Revenue','month']].groupby(['month']).corr()
+a3final=a3.drop(columns=['50% Views'])
+
+a4=data[['Clicks', 'Revenue','month']].groupby(['month']).corr()
+a4final=a4.drop(columns=['Clicks'])
+
+a5=data[['CPC', 'Revenue','month']].groupby(['month']).corr()
+a5final=a5.drop(columns=['CPC'])
+
+a6=data[['CPM', 'Revenue','month']].groupby(['month']).corr()
+a6final=a6.drop(columns=['CPM'])
+
+a7=data[['CPOrder', 'Revenue','month']].groupby(['month']).corr()
+a7final=a7.drop(columns=['CPOrder'])
+
+a8=data[['CPView50%', 'Revenue','month']].groupby(['month']).corr()
+a8final=a8.drop(columns=['CPView50%'])
+
+a9=data[['CPVisit', 'Revenue','month']].groupby(['month']).corr()
+a9final=a9.drop(columns=['CPVisit'])
+
+a10=data[['CTR', 'Revenue','month']].groupby(['month']).corr()
+a10final=a10.drop(columns=['CTR'])
+
+a11=data[['Visits', 'Revenue','month']].groupby(['month']).corr()
+a11final=a11.drop(columns=['Visits'])
+
+a12=data[['Order rate', 'Revenue','month']].groupby(['month']).corr()
+a12final=a12.drop(columns=['Order rate'])
+
+a13=data[['Orders', 'Revenue','month']].groupby(['month']).corr()
+a13final=a13.drop(columns=['Orders'])
+
+a14=data[['ROAS', 'Revenue','month']].groupby(['month']).corr()
+a14final=a14.drop(columns=['ROAS'])
+
+a15=data[['Visit rate', 'Revenue','month']].groupby(['month']).corr()
+a15final=a15.drop(columns=['Visit rate'])
+
+a16=data[['VTR50%', 'Revenue','month']].groupby(['month']).corr()
+a16final=a16.drop(columns=['VTR50%'])
+
+
+frames=[a1final, a2final, a3final, a4final, a5final,a6final,
+        a7final,a8final,a9final,a10final,a11final,a12final,a13final,
+        a14final,a15final,a16final]
+
+result=pd.concat(frames)
+
+
+
