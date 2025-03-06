@@ -1,0 +1,7 @@
+import pandas as pd
+import numpy as nd
+
+data=pd.read_csv('C:\\Users\\TZ422RR\\OneDrive - EY\\Desktop\\data.csv', encoding="cp949")
+
+a=data.groupby(['CHANNEL','COUNTRY'])['visitclick'].quantile(1)
+ 
