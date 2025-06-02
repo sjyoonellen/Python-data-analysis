@@ -1,0 +1,38 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import datetime as dt
+
+
+import warnings
+warnings.filterwarnings("ignore")
+
+df=pd.read_csv('C:\\Users\\TZ422RR\\OneDrive - EY\\Desktop\\data3.csv', encoding="cp949")
+df = df[df.Country == 'United Kingdom']
+df = df[df['Quantity']>0]
+df = df[df['UnitPrice']>0]
+df.dropna(subset=['CustomerID'],how='all',inplace=True)
+
+now = dt.date(2011,12,9)
+
+df['date'] = pd.DatetimeIndex(df.InvoiceDate).date
+
+recency_df = df.groupby(['CustomerID'],as_index=False)['date'].max()
+recency_df.columns = ['CustomerID','LastPurchaseDate']
+recency_df['Recency'] = recency_df.LastPurchaseDate.apply(lambda x : (now - x).days)
+
+recency_df.drop(columns=['LastPurchaseDate'],inplace=True)
+
+frequency_df = df.copy()
+frequency_df.drop_duplicates(subset=['CustomerID','InvoiceNo'], keep="first", inplace=True) 
+frequency_df = frequency_df.groupby('CustomerID',as_index=False)['InvoiceNo'].count()
+frequency_df.columns = ['CustomerID','Frequency']
+
+df['Total_cost'] = df['UnitPrice'] * df['Quantity']
+monetary_df=df.groupby('CustomerID',as_index=False)['Total_cost'].sum()
+monetary_df.columns = ['CustomerID','Monetary']
+rf = recency_df.merge(frequency_df,left_on='CustomerID',right_on='CustomerID')
+rfm = rf.merge(monetary_df,left_on='CustomerID',right_on='CustomerID')
+
+rfm.set_index('CustomerID',inplace=True)
+rfm.head()
