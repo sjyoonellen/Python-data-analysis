@@ -35,4 +35,26 @@ rf = recency_df.merge(frequency_df,left_on='CustomerID',right_on='CustomerID')
 rfm = rf.merge(monetary_df,left_on='CustomerID',right_on='CustomerID')
 
 rfm.set_index('CustomerID',inplace=True)
-rfm.head()
+
+rfm["RecencyScore"] = pd.qcut(rfm["Recency"], 5, labels = [5, 4 , 3, 2, 1])
+rfm["FrequencyScore"]= pd.qcut(rfm["Frequency"].rank(method="first"),5, labels=[1,2,3,4,5])
+rfm["MonetaryScore"] = pd.qcut(rfm['Monetary'], 5, labels = [1, 2, 3, 4, 5])
+
+rfm["RFM_SCORE"] = (rfm['RecencyScore'].astype(str) + 
+                     rfm['FrequencyScore'].astype(str) + 
+                     rfm['MonetaryScore'].astype(str))
+
+seg_map = {
+    r'[1-2][1-2]': 'Hibernating',
+    r'[1-2][3-4]': 'At Risk',
+    r'[1-2]5': 'Can\'t Loose',
+    r'3[1-2]': 'About to Sleep',
+    r'33': 'Need Attention',
+    r'[3-4][4-5]': 'Loyal Customers',
+    r'41': 'Promising',
+    r'51': 'New Customers',
+    r'[4-5][2-3]': 'Potential Loyalists',
+    r'5[4-5]': 'Champions'
+}
+rfm['Segment'] = rfm['RecencyScore'].astype(str) + rfm['FrequencyScore'].astype(str)
+rfm['Segment'] = rfm['Segment'].replace(seg_map, regex=True)
