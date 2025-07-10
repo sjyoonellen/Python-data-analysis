@@ -1,0 +1,36 @@
+import pandas as pd
+import numpy as np
+
+data=pd.read_csv('C:\\Users\\TZ422RR\\OneDrive - EY\\Desktop\\data2.csv', encoding="cp949")
+
+others_keyword = ['Charging Cable',
+ 'Type-C Cable',
+ 'HDMI Cable',
+ 'Remote Control']
+
+data['Others'] = data.apply(
+    lambda row: 'Others' if (
+        any(keyword in row['product_name'].lower() for keyword in others_keyword)) else '-',
+        axis=1
+)
+
+
+res2_TV = ["TV"]
+res2_Smartphone = ["Smartphone", "iPhone"]
+res2_Speaker = ["Speaker"]
+res2_Watch=["Watch"]
+
+
+
+data['keyword'] = data.apply(
+    lambda row: row['keyword'] if row['Others'] == 'Others' else
+    ('TV' if any(keyword.lower() in row['product_name'].lower() for keyword in res2_TV) else
+    'Smartphone' if any(keyword.lower() in row['product_name'].lower() for keyword in res2_Smartphone) else
+    'Speaker' if any(keyword.lower() in row['product_name'].lower() for keyword in res2_Speaker) else
+    'Watch' if any(keyword.lower() in row['product_name'].lower() for keyword in res2_Watch) else row['keyword']),
+    axis=1
+)
+
+data.head()
+
+data['keyword'].unique()
