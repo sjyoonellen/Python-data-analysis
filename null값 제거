@@ -1,0 +1,12 @@
+
+import pandas as pd							
+import numpy as np							
+import matplotlib.pyplot as plt							
+import datetime as dt							
+							
+							
+import warnings							
+warnings.filterwarnings("ignore")							
+							
+df=pd.read_csv('C:\\Users\\sjyoo\\OneDrive\\바탕 화면\\transactions.csv')							
+null_values = pd.DataFrame(df.isnull().sum(),columns=['count_value'])							
