@@ -1,0 +1,13 @@
+import warnings	
+warnings.filterwarnings("ignore")	
+	
+df=pd.read_csv('C:\\Users\\sjyoo\\OneDrive\\바탕 화면\\transactions.csv')	
+	
+Q1 = df['amount'].quantile(0.25)	
+Q3 = df['amount'].quantile(0.75)	
+IQR = Q3 - Q1	
+	
+lower_bound = Q1 - 1.5 * IQR	
+upper_bound = Q3 + 1.5 * IQR	
+df_outlier_clean = df[(df['amount'] >= lower_bound) & 	
+                              (df['amount'] <= upper_bound)]	
