@@ -1,0 +1,53 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import datetime as dt
+
+
+import warnings
+warnings.filterwarnings("ignore")
+
+df=pd.read_csv('C:\\Users\\sjyoo\\OneDrive\\바탕 화면\\transactions.csv')
+df = df[df.country == 'Korea']
+df = df[df['amount']>0]
+df.dropna(subset=['user_id'],how='all',inplace=True)
+
+now = dt.date(2025,7,25)
+
+df['date'] = pd.DatetimeIndex(df.transaction_date).date
+
+recency_df = df.groupby(['user_id'],as_index=False)['date'].max()
+recency_df.columns = ['user_id','LastPurchaseDate']
+recency_df['Recency'] = recency_df.LastPurchaseDate.apply(lambda x : (now - x).days)
+
+recency_df.drop(columns=['LastPurchaseDate'],inplace=True)
+
+frequency_df = df.copy()
+frequency_df.drop_duplicates(subset=['user_id','transaction_id'], keep="first", inplace=True) 
+frequency_df = frequency_df.groupby('user_id',as_index=False)['transaction_id'].count()
+frequency_df.columns = ['user_id','Frequency']
+
+df['Total_cost'] = df['amount']
+monetary_df=df.groupby('user_id',as_index=False)['Total_cost'].sum()
+monetary_df.columns = ['user_id','Monetary']
+rf = recency_df.merge(frequency_df,left_on='user_id',right_on='user_id')
+rfm = rf.merge(monetary_df,left_on='user_id',right_on='user_id')
+
+rfm.set_index('user_id',inplace=True)
+
+rfm["RecencyScore"] = pd.qcut(rfm["Recency"], 5, labels = [5, 4 , 3, 2, 1])
+rfm["FrequencyScore"]= pd.qcut(rfm["Frequency"].rank(method="first"),5, labels=[1,2,3,4,5])
+rfm["MonetaryScore"] = pd.qcut(rfm['Monetary'], 5, labels = [1, 2, 3, 4, 5])
+
+rfm["RFM_SCORE"] = (rfm['RecencyScore'].astype(str) + 
+                     rfm['FrequencyScore'].astype(str) + 
+                     rfm['MonetaryScore'].astype(str))
+
+
